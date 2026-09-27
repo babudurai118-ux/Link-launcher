@@ -1425,7 +1425,7 @@ fun GlanceWidgetContent(
     val launchAction = actionRunCallback<LaunchUrlActionCallback>(
         actionParametersOf(
             ActionParameters.Key<String>("TARGET_URL") to config.url,
-            ActionParameters.Key<String?>("TARGET_PKG") to config.targetPackage
+            ActionParameters.Key<String>("TARGET_PKG") to (config.targetPackage ?: "")
         )
     )
 
@@ -1640,7 +1640,7 @@ class LaunchUrlActionCallback : ActionCallback {
         parameters: ActionParameters
     ) {
         val targetUrl = parameters[ActionParameters.Key<String>("TARGET_URL")] ?: "https://youtube.com"
-        val targetPackage = parameters[ActionParameters.Key<String?>("TARGET_PKG")]
+        val targetPackage = parameters[ActionParameters.Key<String>("TARGET_PKG")]
 
         val viewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(targetUrl)).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
