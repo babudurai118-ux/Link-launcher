@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Fluid Glass Launcher</string>
+    <string name="widget_display_name">Fluid Glass Widget</string>
+    <string name="widget_description">A customizable glass-style shortcut widget.</string>
+</resources>
