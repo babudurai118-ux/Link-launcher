@@ -193,6 +193,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun requestPinWidget(context: Context, config: WidgetConfig) {
+    try {
         val appWidgetManager = AppWidgetManager.getInstance(context)
         val provider = ComponentName(context, FluidGlassWidgetReceiver::class.java)
 
@@ -200,12 +201,9 @@ class MainActivity : ComponentActivity() {
             if (appWidgetManager.isRequestPinAppWidgetSupported) {
                 val successCallbackIntent = Intent(context, WidgetPinCallbackReceiver::class.java)
                 val successPendingIntent = PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    successCallbackIntent,
+                    context, 0, successCallbackIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                 )
-
                 appWidgetManager.requestPinAppWidget(provider, null, successPendingIntent)
                 Toast.makeText(context, "Place widget on your home screen", Toast.LENGTH_SHORT).show()
             } else {
@@ -214,7 +212,10 @@ class MainActivity : ComponentActivity() {
         } else {
             Toast.makeText(context, "Use home screen widget menu to add", Toast.LENGTH_LONG).show()
         }
+    } catch (e: Exception) {
+        Toast.makeText(context, "Pin error: ${e.message}", Toast.LENGTH_LONG).show()
     }
+}
 }
 
 private val PureBlack = Color(0xFF000000)
